@@ -9,9 +9,6 @@ dotenv.config();
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 export function generateTokens(user) {
-	console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET);
-	console.log("REFRESH_TOKEN_SECRET:", process.env.REFRESH_TOKEN_SECRET);
-
 	if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
 		throw new Error("Missing JWT secrets in environment variables.");
 	}
