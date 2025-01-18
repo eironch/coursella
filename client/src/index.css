@@ -1,3 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Helvetica Compressed";
+  src: url("./assets/helvetica-compressed.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary: #F5F5F5;
+  --secondary: #DBDBDB;
+  --tertiary: #565656;
+}
+
+.root {
+  overflow: hidden;
+}
+
+.body {
+  overflow: hidden;
+}
+
+.modal-anim {
+  transform: scale(0.95);
+  opacity: 0;
+  transition:
+    transform 0.25s ease-in-out,
+    opacity 0.25s ease-in-out;
+}
+
+.modal-anim.active {
+  transform: scale(1);
+  opacity: 1;
+  transition:
+    transform 0.25s ease-in-out,
+    opacity 0.1s ease-in-out;
+}
+
+.scrollable-div {
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollable-div::-webkit-scrollbar {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  background-color: var(--tertiary);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
