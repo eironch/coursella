@@ -9,6 +9,10 @@ dotenv.config();
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 export function generateTokens(user) {
+	if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
+    throw new Error("Missing JWT secrets in environment variables.");
+  }
+
 	const accessToken = jwt.sign({ userId: user.userId, role: user.role }, ACCESS_TOKEN_SECRET, {
 		expiresIn: "1h",
 	});
