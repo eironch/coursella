@@ -23,7 +23,7 @@ export default function SyllabusManagement({
   }
 
   return (
-    <div className="flex h-full w-full flex-col p-5 q-text-sm">
+    <div className="flex h-full w-full flex-col items-none p-5 q-text-sm">
       <Table
         columnNames={[
           "Syllabus ID",
