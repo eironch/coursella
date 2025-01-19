@@ -100,6 +100,7 @@ export function AppProvider({ children }) {
     if (location.pathname.startsWith("/syllabus/")) return;
 
     const path = rolePathMap[userRole] || "/";
+    console.log(path)
     navigate(path);
   }
 
@@ -199,6 +200,7 @@ export function AppProvider({ children }) {
         log,
         error,
         logOut,
+        handlePath,
         incrementProgramYearSem,
         decrementProgramYearSem,
       }}
