@@ -259,6 +259,17 @@ export default function SyllabusModal({
     postReferenceBooks(syllabusId);
     postPreviousModules(syllabusId);
     postWebReferences(syllabusId);
+    setIsResultModalOpen(true);
+    setResultModalSettings({
+      handleClose: () => {
+        setIsResultModalOpen(false);
+        setIsSyllabusModalOpen(false);
+      },
+      title: "Syllabus Submitted",
+      message: (
+        <p>You have successfully submitted your syllabus for evaluation.</p>
+      ),
+    });
   }
 
   async function putEvaluationStatus(status) {
@@ -462,7 +473,7 @@ export default function SyllabusModal({
                       </button>
                     ))}
                     {isEditable && (
-                      <div className="mt-3 ml-5 flex justify-end w-full">
+                      <div className="ml-5 mt-3 flex w-full justify-end">
                         <button
                           className="flex h-10 w-fit items-center justify-center gap-5 whitespace-nowrap bg-highlight px-5 text-primary q-text-sm q-rounded-xl hover:bg-highlight-light disabled:bg-tertiary disabled:opacity-50"
                           onClick={() => saveSyllabus()}
@@ -476,7 +487,7 @@ export default function SyllabusModal({
                   </div>
                 </div>
                 <div className="flex h-fit w-full justify-center rounded-3xl bg-white">
-                  <div className="q-p-20 flex h-full w-full flex-col items-center q-gap-20 q-text-sm">
+                  <div className="flex h-full w-full flex-col items-center q-gap-20 q-p-20 q-text-sm">
                     {currentModalTab === "Overview" && (
                       <OverviewTab
                         handleSyllabusChange={handleSyllabusChange}

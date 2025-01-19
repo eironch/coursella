@@ -64,7 +64,7 @@ export default function Messages({
         <h2 className="flex w-full justify-center font-bold q-text-xl">
           Recent Messages
         </h2>
-        <div className="my-10 flex w-full flex-col items-center gap-5">
+        <div className="flex w-full flex-col items-center gap-5">
           {recipients.length === 0 && "No Recent Messages"}
           {recipients.map((recipient, index) => (
             <div

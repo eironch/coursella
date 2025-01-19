@@ -100,7 +100,6 @@ export default function Messages({
                   <p className="q-text-sm">{recipient.role}</p>
                 </div>
                 <div className="flex gap-5 whitespace-nowrap pr-5 q-text-sm">
-                  {/* {recipient.createdDate} */}
                   {!recipient.isRead && (
                     <div className="aspect-square rounded-full bg-red-600 p-2" />
                   )}
