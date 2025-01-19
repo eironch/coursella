@@ -43,13 +43,11 @@ export default function Nav({
 
   return (
     <div className="z-20 flex h-full w-full">
-      <div className="hidden h-full w-4/12 flex-col items-center gap-5 q-pl-10 pb-5 pt-3 q-text-base md:flex">
+      <div className="hidden h-full w-4/12 flex-col items-center gap-5 pb-5 pt-3 q-pl-10 q-text-base md:flex">
         <div className="flex h-20 w-full items-center gap-5 p-4">
           <img className="w-10" src={CoursellaLogo} />
           <h1 className="font-helvetica-compressed text-highlight q-text-2xl">
-            {role === "Instructor" && "Instructor Dashboard"}
-            {role === "Coordinator" && "Coordinator Dashboard"}
-            {role === "Admin" && "Admin Dashboard"}
+            {role === "New" ? "Admission" : `${role} Dashboard`}
           </h1>
         </div>
         {tabs.map((tab, index) => (

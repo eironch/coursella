@@ -447,7 +447,7 @@ export default function InstructorPage() {
                 <img className="h-full w-full" src={CoursellaLogo} />
               </div>
               <div className="w-full font-helvetica-compressed text-highlight q-text-3xl">
-                Instructor Dashboard
+                {role === "New" ? "Admission" : `${role} Dashboard`}
               </div>
               <button onClick={() => setIsNavModalOpen(true)}>
                 <img className="h-full w-full" src={NavTertiary} />

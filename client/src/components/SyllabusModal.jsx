@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
-import Lottie from "lottie-react";
 import PropTypes from "prop-types";
 
 import { useAppContext } from "../context/AppContext.jsx";
 
+import Backdrop from "./Backdrop.jsx";
+import Table from "./Table.jsx";
+import InputField from "./InputField.jsx";
+import Combobox from "./Combobox.jsx";
+import Lottie from "lottie-react";
+
 import LoadingAnimation from "../assets/loading.json";
 
-import Backdrop from "./Backdrop.jsx";
-
-import OverviewTab from "../pages/instructor/syllabusTabs/OverviewTab.jsx";
-import ObjectivesTab from "../pages/instructor/syllabusTabs/ObjectivesTab.jsx";
-import DetailsTab from "../pages/instructor/syllabusTabs/DetailsTab.jsx";
-import UniversityInfo from "../pages/instructor/syllabusTabs/UniversityInfo.jsx";
-import ResourcesTab from "../pages/instructor/syllabusTabs/ResourcesTab.jsx";
-import PoliciesTab from "../pages/instructor/syllabusTabs/PoliciesTab.jsx";
-import HistoryTab from "../pages/instructor/syllabusTabs/HistoryTab.jsx";
+import OverviewTab from "../pages/instructor/courseManagementTabs/OverviewTab.jsx";
+import ObjectivesTab from "../pages/instructor/courseManagementTabs/ObjectivesTab.jsx";
+import DetailsTab from "../pages/instructor/courseManagementTabs/DetailsTab.jsx";
+import UniversityInfo from "../pages/instructor/courseManagementTabs/UniversityInfo.jsx";
+import ResourcesTab from "../pages/instructor/courseManagementTabs/ResourcesTab.jsx";
+import PoliciesTab from "../pages/instructor/courseManagementTabs/PoliciesTab.jsx";
+import HistoryTab from "../pages/instructor/courseManagementTabs/HistoryTab.jsx";
 
 SyllabusModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
@@ -110,6 +113,8 @@ export default function SyllabusModal({
 
   // prepared by
   const [preparedBy, setPreparedBy] = useState({});
+
+  const [selectedCourseCodes, setSelectedCourseCodes] = useState([]);
 
   const programEnrollmentSubTabs = [
     "Overview",
@@ -243,7 +248,7 @@ export default function SyllabusModal({
     }
   }
 
-  async function submitSyllabus() {
+  async function saveSyllabus() {
     setIsSaveLoading(true);
 
     const syllabusId = await postSyllabus();
@@ -317,7 +322,7 @@ export default function SyllabusModal({
       }
     }
 
-    if (role !== "student" && targetId.syllabusId) getSyllabus();
+    if (role !== "Student" && targetId.syllabusId) getSyllabus();
   }, []);
 
   useEffect(() => {
@@ -347,7 +352,7 @@ export default function SyllabusModal({
       }
     }
 
-    if (role === "student") getSyllabus();
+    if (role === "Student" && targetId.syllabusId) getSyllabus();
   }, []);
 
   useEffect(() => {
@@ -364,7 +369,6 @@ export default function SyllabusModal({
         const payload = res.data.payload;
 
         setCourseCodes(payload);
-        setSyllabus((prev) => ({ ...prev, courseCode: "" }));
       } catch (err) {
         error(err);
       }
@@ -402,27 +406,30 @@ export default function SyllabusModal({
   return (
     <Backdrop
       onClick={
-        !syllabus.programName || !isEditable
+        selectedCourseCodes.length === 0
           ? handleClose
-            : () => {
-                setActionModalSettings({
-                  title: "Unsaved Changes",
-                  message: (
-                    <>
-                      <p>You have unsaved changes on this syllabus.</p>
-                      <p className="text-red-600">
-                        Exiting now will result in the loss of this information.
-                      </p>
-                    </>
-                  ),
-                  actionLabel: "Exit Without Saving",
-                  action: () => {
-                    handleClose();
-                    setIsActionModalOpen(false);
-                  },
-                });
-                setIsActionModalOpen(true);
-              }
+          : () => {
+              setActionModalSettings({
+                title: "Unsaved Changes",
+                message: (
+                  <>
+                    <p>
+                      You have unsaved changes related to the student&apos;s
+                      enrollment.
+                    </p>
+                    <p className="text-red-600">
+                      Exiting now will result in the loss of this information.
+                    </p>
+                  </>
+                ),
+                actionLabel: "Exit Without Saving",
+                action: () => {
+                  handleClose();
+                  setIsActionModalOpen(false);
+                },
+              });
+              setIsActionModalOpen(true);
+            }
       }
     >
       <div className="h-full w-full q-scroll-pl md:w-9/12">
@@ -455,40 +462,10 @@ export default function SyllabusModal({
                       </button>
                     ))}
                     {isEditable && (
-                      <div className="ml-5 mt-3 flex w-full justify-end md:mr-5">
+                      <div className="mt-3 ml-5 flex justify-end w-full">
                         <button
                           className="flex h-10 w-fit items-center justify-center gap-5 whitespace-nowrap bg-highlight px-5 text-primary q-text-sm q-rounded-xl hover:bg-highlight-light disabled:bg-tertiary disabled:opacity-50"
-                          onClick={() => {
-                            setActionModalSettings({
-                              title: "Submit Syllabus",
-                              message: (
-                                <p>
-                                  Are you sure you want to submit this syllabus?
-                                  Ensure all details are correct before
-                                  proceeding.
-                                </p>
-                              ),
-                              actionLabel: "Submit Syllabus",
-                              action: () => {
-                                handleClose();
-                                submitSyllabus();
-                                setIsActionModalOpen(false);
-                                setIsResultModalOpen(true);
-                                setResultModalSettings({
-                                  handleClose: () =>
-                                    setIsResultModalOpen(false),
-                                  title: "Syllabus Submitted",
-                                  message: (
-                                    <p>
-                                      Your syllabus has been successfully
-                                      submitted.
-                                    </p>
-                                  ),
-                                });
-                              },
-                            });
-                            setIsActionModalOpen(true);
-                          }}
+                          onClick={() => saveSyllabus()}
                           disabled={isSaveLoading || !isSubmittable}
                         >
                           Submit Syllabus
@@ -499,7 +476,7 @@ export default function SyllabusModal({
                   </div>
                 </div>
                 <div className="flex h-fit w-full justify-center rounded-3xl bg-white">
-                  <div className="flex h-full w-full flex-col items-center q-gap-20 q-p-20 q-text-sm">
+                  <div className="q-p-20 flex h-full w-full flex-col items-center q-gap-20 q-text-sm">
                     {currentModalTab === "Overview" && (
                       <OverviewTab
                         handleSyllabusChange={handleSyllabusChange}
