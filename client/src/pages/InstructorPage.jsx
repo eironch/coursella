@@ -442,7 +442,7 @@ export default function InstructorPage() {
           tabs={instructorTabs}
         >
           <div className="scrollable-div flex h-full w-full flex-col gap-5 overflow-y-scroll py-5 text-tertiary q-scroll-page">
-            <div className="flex items-center justify-between gap-5 md:hidden">
+            <div className="flex items-center justify-between gap-5 px-2 md:hidden">
               <div className="w-10 flex-none">
                 <img className="h-full w-full" src={CoursellaLogo} />
               </div>

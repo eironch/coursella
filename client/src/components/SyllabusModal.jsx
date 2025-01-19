@@ -13,13 +13,13 @@ import Lottie from "lottie-react";
 
 import LoadingAnimation from "../assets/loading.json";
 
-import OverviewTab from "../pages/instructor/courseManagementTabs/OverviewTab.jsx";
-import ObjectivesTab from "../pages/instructor/courseManagementTabs/ObjectivesTab.jsx";
-import DetailsTab from "../pages/instructor/courseManagementTabs/DetailsTab.jsx";
-import UniversityInfo from "../pages/instructor/courseManagementTabs/UniversityInfo.jsx";
-import ResourcesTab from "../pages/instructor/courseManagementTabs/ResourcesTab.jsx";
-import PoliciesTab from "../pages/instructor/courseManagementTabs/PoliciesTab.jsx";
-import HistoryTab from "../pages/instructor/courseManagementTabs/HistoryTab.jsx";
+import OverviewTab from "../pages/instructor/syllabusTabs/OverviewTab.jsx";
+import ObjectivesTab from "../pages/instructor/syllabusTabs/ObjectivesTab.jsx";
+import DetailsTab from "../pages/instructor/syllabusTabs/DetailsTab.jsx";
+import UniversityInfo from "../pages/instructor/syllabusTabs/UniversityInfo.jsx";
+import ResourcesTab from "../pages/instructor/syllabusTabs/ResourcesTab.jsx";
+import PoliciesTab from "../pages/instructor/syllabusTabs/PoliciesTab.jsx";
+import HistoryTab from "../pages/instructor/syllabusTabs/HistoryTab.jsx";
 
 SyllabusModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
