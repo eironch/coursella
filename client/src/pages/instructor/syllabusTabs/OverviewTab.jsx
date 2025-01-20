@@ -214,6 +214,14 @@ export default function OverviewTab({
                 attr="w-full"
                 disabled={!isEditable}
               />
+              <button
+                className="bg-red-600 px-5 py-2.5 text-primary q-rounded-xl hover:bg-red-500"
+                onClick={() =>
+                  setSchedules((prev) => prev.filter((_, i) => i !== index))
+                }
+              >
+                Remove Course Schedule
+              </button>
             </div>
           ))}
           {isEditable && (
