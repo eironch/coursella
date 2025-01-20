@@ -231,7 +231,7 @@ export default function OverviewTab({
                 ])
               }
             >
-              Add New Exam Schedule
+              Add New Course Schedule
             </button>
           )}
         </div>
