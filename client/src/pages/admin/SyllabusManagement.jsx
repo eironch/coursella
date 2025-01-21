@@ -19,7 +19,7 @@ export default function SyllabusManagement({
   const navigate = useNavigate();
 
   function setSyllabusId(targetId) {
-    navigate(`/admin/${targetId}`);
+    navigate(`/admin/syllabus/${targetId}`);
   }
 
   return (
