@@ -875,11 +875,11 @@ export async function getInstructorBasic(req, res) {
 		// format data for client
 		const payload = {
 			fullName:
-				user.givenName +
+				(user.givenName || "") +
 				" " +
-				user.middleName +
+				(user.middleName || "") +
 				" " +
-				user.familyName +
+				(user.familyName || "") +
 				" " +
 				(user.suffix !== null ? " " + user.suffix : ""),
 			department: user.department,
