@@ -58,7 +58,7 @@ export default function OverviewTab({
           />
         </div>
         <div className="flex flex-col gap-5">
-          <div className="flex gap-5 flex-col md:flex-row">
+          <div className="flex flex-col gap-5 md:flex-row">
             <Combobox
               items={courseCodes}
               isSearchable={true}
@@ -81,7 +81,7 @@ export default function OverviewTab({
               attr="w-full flex-[5]"
               disabled={!isEditable}
             />
-            <div className="flex md:flex-col md:py-0 py-5 justify-center gap-5">
+            <div className="flex justify-center gap-5 py-5 md:flex-col md:py-0">
               <label
                 htmlFor="lecture-checkbox"
                 className="inline-flex select-none items-center"
@@ -214,14 +214,16 @@ export default function OverviewTab({
                 attr="w-full"
                 disabled={!isEditable}
               />
-              <button
-                className="bg-red-600 px-5 py-2.5 text-primary q-rounded-xl hover:bg-red-500"
-                onClick={() =>
-                  setSchedules((prev) => prev.filter((_, i) => i !== index))
-                }
-              >
-                Remove Course Schedule
-              </button>
+              {isEditable && (
+                <button
+                  className="bg-red-600 px-5 py-2.5 text-primary q-rounded-xl hover:bg-red-500"
+                  onClick={() =>
+                    setSchedules((prev) => prev.filter((_, i) => i !== index))
+                  }
+                >
+                  Remove Course Schedule
+                </button>
+              )}
             </div>
           ))}
           {isEditable && (
