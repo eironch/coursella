@@ -19,7 +19,7 @@ export default function InstructorSyllabi({
   const navigate = useNavigate();
 
   function setSyllabusId(targetId) {
-    navigate(`/instructor/${targetId}`);
+    navigate(`/instructor/syllabus/${targetId}`);
   }
 
   return (

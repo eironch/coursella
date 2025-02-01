@@ -1,8 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import ExpandTertiary from "../assets/expand-tertiary.svg";
-
 Table.propTypes = {
   columnNames: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
@@ -29,18 +27,6 @@ export default function Table({
   setModalOpen,
 }) {
   const [showCompressed, setShowCompressed] = useState(false);
-  // const thClassMap = {
-  //   "Course Title": "flex-[3]",
-  //   Instructor: "flex-[2]",
-  //   "Course Code": "flex-[2]",
-  //   "Pre-requisite": "flex-[2]",
-  // };
-  // const tdClassMap = {
-  //   courseTitle: "flex-[3]",
-  //   instructorName: "flex-[2]",
-  //   courseCode: "flex-[2]",
-  //   prerequisite: "flex-[2]",
-  // };
 
   function handleReviewRow(targetId) {
     setModalOpen(true);
@@ -59,37 +45,20 @@ export default function Table({
                   index > removeWhere[1] ||
                   showCompressed,
               )
-              .map((name, index) =>
-                index !== compressedAt ? (
-                  <th
-                    className={`${(thClassMap && thClassMap[name]) || "flex-1"} ${searchParams.includes(name) && "bg-highlight text-primary"} flex h-full w-full cursor-pointer items-center justify-center py-5 hover:bg-highlight-light hover:text-primary`}
-                    key={index}
-                    dangerouslySetInnerHTML={{ __html: name }}
-                    onClick={() =>
-                      setSearchParams((prev) =>
-                        prev.some((param) => param === name)
-                          ? prev.filter((param) => param !== name)
-                          : [...prev, name],
-                      )
-                    }
-                  ></th>
-                ) : (
-                  [
-                    <th
-                      className="flex h-full w-10 max-w-10 cursor-pointer border-l-2 border-r-2 border-tertiary px-2.5 hover:bg-primary"
-                      key={index + "compressed"}
-                      onClick={() => setShowCompressed(!showCompressed)}
-                    >
-                      <img src={ExpandTertiary} />
-                    </th>,
-                    <th
-                      className={`${thClassMap[name] || "flex-1"} w-full py-5`}
-                      key={index}
-                      dangerouslySetInnerHTML={{ __html: name }}
-                    ></th>,
-                  ]
-                ),
-              )}
+              .map((name, index) => (
+                <th
+                  className={`${(thClassMap && thClassMap[name]) || "flex-1"} ${searchParams.includes(name) && "bg-highlight text-primary"} flex h-full w-full cursor-pointer items-center justify-center py-5 hover:bg-highlight-light hover:text-primary`}
+                  key={index}
+                  dangerouslySetInnerHTML={{ __html: name }}
+                  onClick={() =>
+                    setSearchParams((prev) =>
+                      prev.some((param) => param === name)
+                        ? prev.filter((param) => param !== name)
+                        : [...prev, name],
+                    )
+                  }
+                ></th>
+              ))}
           </tr>
         </thead>
         <tbody className="flex w-full flex-col">
@@ -97,7 +66,9 @@ export default function Table({
             <tr
               className={`${setTargetId ? "cursor-pointer" : "cursor-default"} ${data.length !== rowIndex + 1 && "border-b-2"} flex w-full items-center rounded-t-2xl py-4 text-center q-text-sm hover:bg-secondary`}
               key={rowIndex}
-              onClick={() => handleReviewRow(Object.values(row)[0])}
+              onClick={() =>
+                setModalOpen && handleReviewRow(Object.values(row)[0])
+              }
             >
               {Object.entries(row)
                 .filter(

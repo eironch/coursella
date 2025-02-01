@@ -5,9 +5,7 @@ import PropTypes from "prop-types";
 import { useAppContext } from "../context/AppContext.jsx";
 
 import Backdrop from "./Backdrop.jsx";
-import Table from "./Table.jsx";
 import InputField from "./InputField.jsx";
-import Combobox from "./Combobox.jsx";
 import Lottie from "lottie-react";
 
 import LoadingAnimation from "../assets/loading.json";

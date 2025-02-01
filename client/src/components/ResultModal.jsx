@@ -47,7 +47,7 @@ export default function ResultModal({
   return (
     <Backdrop onClick={handleClose}>
       <motion.div
-        className="q-gap-10 p-10 ml-3 flex w-full md:max-w-fit flex-col items-center justify-center rounded-3xl bg-primary font-bold text-tertiary sm:w-10/12 md:m-auto md:w-[40rem]"
+        className="q-gap-10 p-10 ml-3 py-20 flex w-full md:max-w-fit flex-col items-center justify-center rounded-3xl bg-primary font-bold text-tertiary sm:w-10/12 md:m-auto md:w-[40rem]"
         variants={popIn}
         initial="hidden"
         animate="visible"

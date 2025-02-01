@@ -9,6 +9,10 @@ dotenv.config();
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 export function generateTokens(user) {
+	if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
+		throw new Error("Missing JWT secrets in environment variables.");
+	}
+
 	const accessToken = jwt.sign({ userId: user.userId, role: user.role }, ACCESS_TOKEN_SECRET, {
 		expiresIn: "1h",
 	});
@@ -71,7 +75,7 @@ export async function signIn(req, res) {
 
 export async function validateAccess(req, res) {
 	const { userId, role } = req.user;
-	
+
 	if (!userId || !role)
 		return res.status(401).json({ error: "Invalid token, user not authenticated." });
 

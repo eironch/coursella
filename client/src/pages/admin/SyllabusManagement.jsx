@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import Table from "../../components/Table.jsx";
 
-import { useEffect } from "react";
-import { useAppContext } from "../../context/AppContext.jsx";
-
 SyllabusManagement.propTypes = {
   syllabi: PropTypes.array.isRequired,
   searchParams: PropTypes.array.isRequired,
@@ -22,11 +19,11 @@ export default function SyllabusManagement({
   const navigate = useNavigate();
 
   function setSyllabusId(targetId) {
-    navigate(`/admin/${targetId}`);
+    navigate(`/admin/syllabus/${targetId}`);
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center p-5 q-text-sm">
+    <div className="flex h-full w-full flex-col items-none p-5 q-text-sm">
       <Table
         columnNames={[
           "Syllabus ID",

@@ -370,273 +370,274 @@ export default function InstructorPage() {
     userId && getInstructorBasic();
   }, [userId]);
 
-  return (
-    <div className="relative flex h-screen w-screen overflow-hidden bg-secondary font-montserrat">
-      <div className="absolute left-0 z-0 h-[100vh] w-[100vh] rounded-full bg-[radial-gradient(circle,_rgba(19,71,19,0.80),_rgba(19,71,19,0),_rgba(19,71,19,0))] opacity-55" />
-      <AnimatePresence initial={false} mode="wait">
-        {isSyllabusModalOpen && (
-          <SyllabusModal
-            handleClose={() => {
-              navigate("/instructor");
-              setIsSyllabusModalOpen(false);
-            }}
-            currentTab={currentTab}
-            setIsSyllabusModalOpen={setIsSyllabusModalOpen}
-            setIsActionModalOpen={setIsActionModalOpen}
-            setActionModalSettings={setActionModalSettings}
-            setIsResultModalOpen={setIsResultModalOpen}
-            setResultModalSettings={setResultModalSettings}
-            isEditable={isEditable}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence initial={false} mode="wait">
-        {isNavModalOpen && (
-          <NavModal
-            currentTab={currentTab}
-            setCurrentTab={setCurrentTab}
-            setActionModalSettings={setActionModalSettings}
-            setIsActionModalOpen={setIsActionModalOpen}
-            tabs={instructorTabs}
-            handleClose={() => setIsNavModalOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence initial={false} mode="wait">
-        {isResultModalOpen && (
-          <ResultModal
-            handleClose={resultModalSettings.handleClose}
-            title={resultModalSettings.title}
-            message={resultModalSettings.message}
-            modalIcon={modalIcon}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence initial={false} mode="wait">
-        {isActionModalOpen && (
-          <ActionModal
-            handleClose={() => setIsActionModalOpen(false)}
-            title={actionModalSettings.title}
-            message={actionModalSettings.message}
-            modalIcon={modalIcon}
-            actionLabel={actionModalSettings.actionLabel}
-            action={actionModalSettings.action}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence initial={false} mode="wait">
-        {isMessageModalOpen && (
-          <MessageModal
-            handleClose={() => setIsMessageModalOpen(false)}
-            targetId={targetIdRef.current}
-            recipient={recipient}
-          />
-        )}
-      </AnimatePresence>
-      <Nav
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
-        setActionModalSettings={setActionModalSettings}
-        setIsActionModalOpen={setIsActionModalOpen}
-        tabs={instructorTabs}
-      >
-        <div className="q-scroll-page scrollable-div flex h-full w-full flex-col gap-5 overflow-y-scroll py-5 text-tertiary">
-          <div className="flex items-center justify-between gap-5 md:hidden">
-            <div className="w-10 flex-none">
-              <img className="h-full w-full" src={CoursellaLogo} />
-            </div>
-            <div className="w-full font-helvetica-compressed text-highlight q-text-3xl">
-              Instructor Dashboard
-            </div>
-            <button onClick={() => setIsNavModalOpen(true)}>
-              <img className="h-full w-full" src={NavTertiary} />
-            </button>
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="px-2">
-              <h1 className="q-text-lg">
-                {instructor.fullName ? `Welcome, ${instructor.fullName}` : ""}
-              </h1>
-              <h1 className="q-text-base">
-                {instructor.department
-                  ? `${instructor.department} ${instructor.role}`
-                  : ""}
-              </h1>
-            </div>
-            <div className="hidden h-20 w-20 flex-none rounded-full bg-white p-1 md:block">
-              <img
-                className="h-full w-full rounded-full object-cover"
-                src={
-                  instructor.profileImage &&
-                  URL.createObjectURL(instructor.profileImage)
-                }
-              />
-            </div>
-          </div>
-          {currentTab === "Messages" && (
-            <div className="flex items-center justify-between rounded-3xl bg-white px-5 py-4 q-text-base">
-              <SearchBar
-                items={searchRecipients}
-                filteredItems={filteredRecipients}
-                setFilteredItems={setFilteredRecipients}
-                isSearchable={true}
-                placeholder="Search personnel"
-                name="searchRecipient"
-                value={searchRecipient}
-                setValue={(e) => setSearchRecipient(e.target.value)}
-                actionOnSelect={(value) => {
-                  setTargetId(value.recipientId);
-                  setIsMessageModalOpen(true);
-                  setRecipient({ ...value });
-                }}
-                attr="w-full"
-                disabled={false}
-              />
-            </div>
+  if (role === "Instructor" || role === "Coordinator")
+    return (
+      <div className="relative flex h-screen w-screen overflow-hidden bg-secondary font-montserrat">
+        <div className="absolute left-0 z-0 h-[100vh] w-[100vh] rounded-full bg-[radial-gradient(circle,_rgba(19,71,19,0.80),_rgba(19,71,19,0),_rgba(19,71,19,0))] opacity-55" />
+        <AnimatePresence initial={false} mode="wait">
+          {isSyllabusModalOpen && (
+            <SyllabusModal
+              handleClose={() => {
+                navigate("/instructor");
+                setIsSyllabusModalOpen(false);
+              }}
+              currentTab={currentTab}
+              setIsSyllabusModalOpen={setIsSyllabusModalOpen}
+              setIsActionModalOpen={setIsActionModalOpen}
+              setActionModalSettings={setActionModalSettings}
+              setIsResultModalOpen={setIsResultModalOpen}
+              setResultModalSettings={setResultModalSettings}
+              isEditable={isEditable}
+            />
           )}
-          {(currentTab === "Instructor Syllabi" ||
-            currentTab === "Syllabus Management") && (
-            <div className="flex items-center justify-between gap-5 rounded-3xl bg-white px-5 py-4 q-text-base">
-              <SearchBar
-                items={[]}
-                filteredItems={[]}
-                setFilteredItems={() => {}}
-                isSearchable={true}
-                placeholder="Search syllabus"
-                name="searchSyllabus"
-                value={searchSyllabus}
-                setValue={(e) => setSearchSyllabus(e.target.value)}
-                actionOnSelect={() => {}}
-                attr="w-full"
-                disabled={false}
-              />
-            </div>
+        </AnimatePresence>
+        <AnimatePresence initial={false} mode="wait">
+          {isNavModalOpen && (
+            <NavModal
+              currentTab={currentTab}
+              setCurrentTab={setCurrentTab}
+              setActionModalSettings={setActionModalSettings}
+              setIsActionModalOpen={setIsActionModalOpen}
+              tabs={instructorTabs}
+              handleClose={() => setIsNavModalOpen(false)}
+            />
           )}
-          {currentTab === "Syllabus Management" && (
-            <div className="flex items-center justify-between rounded-3xl bg-white px-5 py-4 q-text-base">
-              <Combobox
-                items={[
-                  "Bachelor of Science in Computer Science",
-                  "Bachelor of Science in Information Technology",
-                ]}
-                isSearchable={true}
-                labelText=""
-                placeholder="Select program"
-                name="programName"
-                value={programName}
-                setValue={(e) => setProgramName(e.target.value)}
-                type="text"
-                attr="w-full"
-                disabled={false}
-              />
-            </div>
+        </AnimatePresence>
+        <AnimatePresence initial={false} mode="wait">
+          {isResultModalOpen && (
+            <ResultModal
+              handleClose={resultModalSettings.handleClose}
+              title={resultModalSettings.title}
+              message={resultModalSettings.message}
+              modalIcon={modalIcon}
+            />
           )}
-          <div className="flex h-fit w-full">
-            <div className="flex h-full w-full flex-col overflow-hidden rounded-3xl bg-component">
-              {currentTab === "Instructor Information" && (
-                <div className="scrollable-div flex h-20 items-center gap-2 overflow-x-scroll px-5 q-text-base">
-                  {instructorInfoSubTabs.map((subTab, index) => (
-                    <button
-                      className="h-full p-3 pb-0 text-tertiary hover:text-tertiary/80"
-                      onClick={() => setCurrentSubTab(subTab)}
-                      key={index}
-                    >
-                      {subTab}
-                      <div
-                        className={`${currentSubTab === subTab ? "visible" : "invisible"} h-1 w-full rounded-full bg-tertiary`}
-                      />
-                    </button>
-                  ))}
-                  <div className="flex w-full justify-end gap-5 pl-2">
-                    <button
-                      className={`${isEditingRecord ? "bg-red-500 hover:bg-red-400" : "bg-highlight hover:bg-highlight-light"} flex h-10 w-fit items-center justify-center gap-5 whitespace-nowrap px-5 text-primary q-text-sm q-rounded-xl`}
-                      onClick={() => {
-                        if (isEditingRecord) {
-                          setInstructorRecord(instructorRecordOld);
-                        }
+        </AnimatePresence>
+        <AnimatePresence initial={false} mode="wait">
+          {isActionModalOpen && (
+            <ActionModal
+              handleClose={() => setIsActionModalOpen(false)}
+              title={actionModalSettings.title}
+              message={actionModalSettings.message}
+              modalIcon={modalIcon}
+              actionLabel={actionModalSettings.actionLabel}
+              action={actionModalSettings.action}
+            />
+          )}
+        </AnimatePresence>
+        <AnimatePresence initial={false} mode="wait">
+          {isMessageModalOpen && (
+            <MessageModal
+              handleClose={() => setIsMessageModalOpen(false)}
+              targetId={targetIdRef.current}
+              recipient={recipient}
+            />
+          )}
+        </AnimatePresence>
+        <Nav
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+          setActionModalSettings={setActionModalSettings}
+          setIsActionModalOpen={setIsActionModalOpen}
+          tabs={instructorTabs}
+        >
+          <div className="scrollable-div flex h-full w-full flex-col gap-5 overflow-y-scroll py-5 text-tertiary q-scroll-page">
+            <div className="flex items-center justify-between gap-5 px-2 md:hidden">
+              <div className="w-10 flex-none">
+                <img className="h-full w-full" src={CoursellaLogo} />
+              </div>
+              <div className="w-full font-helvetica-compressed text-highlight q-text-3xl">
+                {role === "New" ? "Admission" : `${role} Dashboard`}
+              </div>
+              <button onClick={() => setIsNavModalOpen(true)}>
+                <img className="h-full w-full" src={NavTertiary} />
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="px-2">
+                <h1 className="q-text-lg">
+                  {instructor.fullName ? `Welcome, ${instructor.fullName}` : ""}
+                </h1>
+                <h1 className="q-text-base">
+                  {instructor.department
+                    ? `${instructor.department} ${instructor.role}`
+                    : ""}
+                </h1>
+              </div>
+              <div className="hidden h-20 w-20 flex-none rounded-full bg-white p-1 md:block">
+                <img
+                  className="h-full w-full rounded-full object-cover"
+                  src={
+                    instructor.profileImage &&
+                    URL.createObjectURL(instructor.profileImage)
+                  }
+                />
+              </div>
+            </div>
+            {currentTab === "Messages" && (
+              <div className="flex items-center justify-between rounded-3xl bg-white px-5 py-4 q-text-base">
+                <SearchBar
+                  items={searchRecipients}
+                  filteredItems={filteredRecipients}
+                  setFilteredItems={setFilteredRecipients}
+                  isSearchable={true}
+                  placeholder="Search personnel"
+                  name="searchRecipient"
+                  value={searchRecipient}
+                  setValue={(e) => setSearchRecipient(e.target.value)}
+                  actionOnSelect={(value) => {
+                    setTargetId(value.recipientId);
+                    setIsMessageModalOpen(true);
+                    setRecipient({ ...value });
+                  }}
+                  attr="w-full"
+                  disabled={false}
+                />
+              </div>
+            )}
+            {(currentTab === "Instructor Syllabi" ||
+              currentTab === "Syllabus Management") && (
+              <div className="flex items-center justify-between gap-5 rounded-3xl bg-white px-5 py-4 q-text-base">
+                <SearchBar
+                  items={[]}
+                  filteredItems={[]}
+                  setFilteredItems={() => {}}
+                  isSearchable={true}
+                  placeholder="Search syllabus"
+                  name="searchSyllabus"
+                  value={searchSyllabus}
+                  setValue={(e) => setSearchSyllabus(e.target.value)}
+                  actionOnSelect={() => {}}
+                  attr="w-full"
+                  disabled={false}
+                />
+              </div>
+            )}
+            {currentTab === "Syllabus Management" && (
+              <div className="flex items-center justify-between rounded-3xl bg-white px-5 py-4 q-text-base">
+                <Combobox
+                  items={[
+                    "Bachelor of Science in Computer Science",
+                    "Bachelor of Science in Information Technology",
+                  ]}
+                  isSearchable={true}
+                  labelText=""
+                  placeholder="Select program"
+                  name="programName"
+                  value={programName}
+                  setValue={(e) => setProgramName(e.target.value)}
+                  type="text"
+                  attr="w-full"
+                  disabled={false}
+                />
+              </div>
+            )}
+            <div className="flex h-fit w-full">
+              <div className="flex h-full w-full flex-col overflow-hidden rounded-3xl bg-component">
+                {currentTab === "Instructor Information" && (
+                  <div className="scrollable-div flex h-20 items-center gap-2 overflow-x-scroll px-5 q-text-base">
+                    {instructorInfoSubTabs.map((subTab, index) => (
+                      <button
+                        className="h-full p-3 pb-0 text-tertiary hover:text-tertiary/80"
+                        onClick={() => setCurrentSubTab(subTab)}
+                        key={index}
+                      >
+                        {subTab}
+                        <div
+                          className={`${currentSubTab === subTab ? "visible" : "invisible"} h-1 w-full rounded-full bg-tertiary`}
+                        />
+                      </button>
+                    ))}
+                    <div className="flex w-full justify-end gap-5 pl-2">
+                      <button
+                        className={`${isEditingRecord ? "bg-red-500 hover:bg-red-400" : "bg-highlight hover:bg-highlight-light"} flex h-10 w-fit items-center justify-center gap-5 whitespace-nowrap px-5 text-primary q-text-sm q-rounded-xl`}
+                        onClick={() => {
+                          if (isEditingRecord) {
+                            setInstructorRecord(instructorRecordOld);
+                          }
 
-                        setIsEditingRecord(!isEditingRecord);
-                      }}
-                    >
-                      {isEditingRecord ? "Cancel Edit" : "Edit Info"}
-                    </button>
+                          setIsEditingRecord(!isEditingRecord);
+                        }}
+                      >
+                        {isEditingRecord ? "Cancel Edit" : "Edit Info"}
+                      </button>
+                      <button
+                        className="flex h-10 w-fit items-center justify-center gap-5 whitespace-nowrap bg-highlight px-5 text-primary q-text-sm q-rounded-xl hover:bg-highlight-light disabled:bg-tertiary disabled:opacity-50"
+                        onClick={() => putInstructorRecord()}
+                        disabled={
+                          isSaveLoading ||
+                          isEqual(instructorRecord, instructorRecordOld)
+                        }
+                      >
+                        Save Changes
+                        {isSaveLoading && <Loading />}
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {currentTab === "Instructor Syllabi" && (
+                  <div className="mx-5 flex h-20 items-center justify-end gap-2 px-2 q-text-base">
                     <button
-                      className="flex h-10 w-fit items-center justify-center gap-5 whitespace-nowrap bg-highlight px-5 text-primary q-text-sm q-rounded-xl hover:bg-highlight-light disabled:bg-tertiary disabled:opacity-50"
-                      onClick={() => putInstructorRecord()}
-                      disabled={
-                        isSaveLoading ||
-                        isEqual(instructorRecord, instructorRecordOld)
-                      }
+                      className="flex h-10 w-fit items-center justify-center gap-5 bg-highlight px-5 text-primary q-text-sm q-rounded-xl hover:bg-highlight-light disabled:bg-tertiary disabled:opacity-50"
+                      onClick={() => {
+                        setIsEditable(true);
+                        setIsSyllabusModalOpen(true);
+                      }}
+                      disabled={isSaveLoading}
                     >
-                      Save Changes
+                      Create Syllabus
                       {isSaveLoading && <Loading />}
                     </button>
                   </div>
+                )}
+                <div className="flex h-fit w-full justify-center overflow-hidden rounded-3xl bg-white">
+                  {currentTab === "Instructor Information" && (
+                    <InstructorInfo
+                      handleChange={handleChange}
+                      instructorRecord={instructorRecord}
+                      setInstructorRecord={setInstructorRecord}
+                      setInstructorRecordOld={setInstructorRecordOld}
+                      isEditingRecord={isEditingRecord}
+                      instructorInfoSubTabs={instructorInfoSubTabs}
+                      currentSubTab={currentSubTab}
+                    />
+                  )}
+                  {currentTab === "Instructor Syllabi" && (
+                    <InstructorSyllabi
+                      syllabi={syllabi}
+                      searchParams={searchParams}
+                      setSearchParams={setSearchParams}
+                      handleSyllabusModalOpen={handleSyllabusModalOpen}
+                    />
+                  )}
+                  {currentTab === "Messages" && (
+                    <Messages
+                      setTargetId={setTargetId}
+                      setIsMessageModalOpen={setIsMessageModalOpen}
+                      setRecipient={setRecipient}
+                      recipients={recipients}
+                      setRecipients={setRecipients}
+                      setFilteredRecipients={setFilteredRecipients}
+                    />
+                  )}
+                  {currentTab === "Syllabus Management" && (
+                    <SyllabusManagement
+                      programName={programName}
+                      syllabi={syllabi}
+                      setSyllabi={setSyllabi}
+                      setTargetId={syllabusId}
+                      searchParams={searchParams}
+                      setSearchParams={setSearchParams}
+                      handleSyllabusModalOpen={handleSyllabusModalOpen}
+                    />
+                  )}
                 </div>
-              )}
-              {currentTab === "Instructor Syllabi" && (
-                <div className="mx-5 flex h-20 items-center justify-end gap-2 px-2 q-text-base">
-                  <button
-                    className="flex h-10 w-fit items-center justify-center gap-5 bg-highlight px-5 text-primary q-text-sm q-rounded-xl hover:bg-highlight-light disabled:bg-tertiary disabled:opacity-50"
-                    onClick={() => {
-                      setIsEditable(true);
-                      setIsSyllabusModalOpen(true);
-                    }}
-                    disabled={isSaveLoading}
-                  >
-                    Create Syllabus
-                    {isSaveLoading && <Loading />}
-                  </button>
-                </div>
-              )}
-              <div className="flex h-fit w-full justify-center rounded-3xl bg-white overflow-hidden">
-                {currentTab === "Instructor Information" && (
-                  <InstructorInfo
-                    handleChange={handleChange}
-                    instructorRecord={instructorRecord}
-                    setInstructorRecord={setInstructorRecord}
-                    setInstructorRecordOld={setInstructorRecordOld}
-                    isEditingRecord={isEditingRecord}
-                    instructorInfoSubTabs={instructorInfoSubTabs}
-                    currentSubTab={currentSubTab}
-                  />
-                )}
-                {currentTab === "Instructor Syllabi" && (
-                  <InstructorSyllabi
-                    syllabi={syllabi}
-                    searchParams={searchParams}
-                    setSearchParams={setSearchParams}
-                    handleSyllabusModalOpen={handleSyllabusModalOpen}
-                  />
-                )}
-                {currentTab === "Messages" && (
-                  <Messages
-                    setTargetId={setTargetId}
-                    setIsMessageModalOpen={setIsMessageModalOpen}
-                    setRecipient={setRecipient}
-                    recipients={recipients}
-                    setRecipients={setRecipients}
-                    setFilteredRecipients={setFilteredRecipients}
-                  />
-                )}
-                {currentTab === "Syllabus Management" && (
-                  <SyllabusManagement
-                    programName={programName}
-                    syllabi={syllabi}
-                    setSyllabi={setSyllabi}
-                    setTargetId={syllabusId}
-                    searchParams={searchParams}
-                    setSearchParams={setSearchParams}
-                    handleSyllabusModalOpen={handleSyllabusModalOpen}
-                  />
-                )}
               </div>
             </div>
           </div>
-        </div>
-      </Nav>
-    </div>
-  );
+        </Nav>
+      </div>
+    );
 }
 
 function Loading() {

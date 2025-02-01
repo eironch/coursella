@@ -875,11 +875,11 @@ export async function getInstructorBasic(req, res) {
 		// format data for client
 		const payload = {
 			fullName:
-				user.givenName +
+				(user.givenName || "") +
 				" " +
-				user.middleName +
+				(user.middleName || "") +
 				" " +
-				user.familyName +
+				(user.familyName || "") +
 				" " +
 				(user.suffix !== null ? " " + user.suffix : ""),
 			department: user.department,
@@ -932,34 +932,34 @@ export async function getInstructorRecord(req, res) {
 		// format data for client
 		const payload = {
 			fullName:
-				user.familyName +
+				(user.familyName || "") +
 				", " +
-				user.givenName +
+				(user.givenName || "") +
 				" " +
-				user.middleName +
+				(user.middleName || "") +
 				(user.suffix !== null ? " " + user.suffix : ""),
-			givenName: user.givenName,
-			middleName: user.middleName,
-			familyName: user.familyName,
-			suffix: user.suffix,
-			sexAtBirth: personnel.sexAtBirth,
-			dateOfBirth: personnel.dateOfBirth.toISOString().split("T")[0],
-			civilStatus: personnel.civilStatus,
-			contactNum: personnel.contactNum,
-			religion: personnel.religion,
-			nationality: personnel.nationality,
-			addressLine1: personnel.addressLine1,
-			addressLine2: personnel.addressLine2,
-			city: personnel.city,
-			stateProvinceRegion: personnel.stateProvinceRegion,
-			postalCode: personnel.postalCode,
-			country: personnel.country,
-			disability: personnel.disability,
-			indigenousGroup: personnel.indigenousGroup,
-			numOfSiblings: personnel.numOfSiblings,
-			incomeBracket: personnel.incomeBracket,
-			academicStatus: personnel.academicStatus,
-			program: personnel.program,
+			givenName: user.givenName || "",
+			middleName: user.middleName || "",
+			familyName: user.familyName || "",
+			suffix: user.suffix || "",
+			sexAtBirth: personnel?.sexAtBirth,
+			dateOfBirth: personnel?.dateOfBirth.toISOString().split("T")[0],
+			civilStatus: personnel?.civilStatus,
+			contactNum: personnel?.contactNum,
+			religion: personnel?.religion,
+			nationality: personnel?.nationality,
+			addressLine1: personnel?.addressLine1,
+			addressLine2: personnel?.addressLine2,
+			city: personnel?.city,
+			stateProvinceRegion: personnel?.stateProvinceRegion,
+			postalCode: personnel?.postalCode,
+			country: personnel?.country,
+			disability: personnel?.disability,
+			indigenousGroup: personnel?.indigenousGroup,
+			numOfSiblings: personnel?.numOfSiblings,
+			incomeBracket: personnel?.incomeBracket,
+			academicStatus: personnel?.academicStatus,
+			program: personnel?.program,
 			profileImage: user.profileImage,
 		};
 
